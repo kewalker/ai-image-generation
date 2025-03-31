@@ -1,0 +1,25 @@
+# Ignore virtual environment
+venv/
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore log files
+*.log
+
+# Ignore environment configuration files
+.env
+*.env
+
+# Ignore dependency lock files (optional)
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore ngrok
+ngrok.exe
+
+# Ignore any generated images
+*.png
