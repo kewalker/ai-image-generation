@@ -1,4 +1,4 @@
-# ai Image Generation
+# ai-image-generation
 
 ```
 python -m venv venv
