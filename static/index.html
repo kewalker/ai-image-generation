@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,41 +9,76 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Vertically center content */
-            align-items: center; /* Horizontally center content */
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            background-color: #f9f9f9;
         }
 
-        input, button {
-            font-size: 18px;
+        h1 {
+            font-size: 24px;
+        }
+
+        input {
+            width: 90%;
+            max-width: 300px;
+            font-size: 16px;
             padding: 10px;
             margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
 
         img {
             margin-top: 20px;
-            max-width: 100%;
+            max-width: 90%;
             border-radius: 10px;
+            display: none;
         }
 
-        #output {
-            display: none; /* Hidden initially */
+        #status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
+
 <body>
 
     <h1>AI Image Generator</h1>
-    <input type="text" id="prompt" placeholder="Enter your prompt..." size="50">
+    <input type="text" id="prompt" placeholder="Enter your prompt...">
     <button onclick="generateImage()">Generate</button>
     <p id="status"></p>
     <img id="output">
 
     <script>
+        document.getElementById("prompt").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                generateImage();
+            }
+        });
+
         async function generateImage() {
             const prompt = document.getElementById("prompt").value;
             if (!prompt) {
@@ -51,7 +87,7 @@
             }
 
             document.getElementById("status").innerText = "Generating...";
-            document.getElementById("output").style.display = "none";  // Hide the previous image
+            document.getElementById("output").style.display = "none";
 
             const response = await fetch("http://localhost:8000/generate", {
                 method: "POST",
@@ -63,7 +99,7 @@
                 const blob = await response.blob();
                 const imgUrl = URL.createObjectURL(blob);
                 document.getElementById("output").src = imgUrl;
-                document.getElementById("output").style.display = "block";  // Show the new image
+                document.getElementById("output").style.display = "block";
                 document.getElementById("status").innerText = "";
             } else {
                 document.getElementById("status").innerText = "Error generating image.";
@@ -72,4 +108,5 @@
     </script>
 
 </body>
+
 </html>
